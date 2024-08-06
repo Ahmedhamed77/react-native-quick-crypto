@@ -82,7 +82,7 @@ repositories {
 }
 
 android {
-  compileSdkVersion safeExtGet("compileSdkVersion", 31)
+  compileSdkVersion safeExtGet('compileSdkVersion', rnsDefaultCompileSdkVersion)
 
   if ((agpVersionMajor == 7 && agpVersionMinor >= 3) || agpVersionMajor >= 8) {
     // Namespace support was added in 7.3.0
@@ -115,8 +115,8 @@ android {
   }
 
   defaultConfig {
-    minSdkVersion safeExtGet('minSdkVersion', 23)
-    targetSdkVersion safeExtGet('targetSdkVersion', 31)
+    minSdkVersion safeExtGet('minSdkVersion', rnsDefaultMinSdkVersion)
+    targetSdkVersion safeExtGet('targetSdkVersion', rnsDefaultTargetSdkVersion)
     versionCode 1
     versionName "1.0"
     buildConfigField "boolean", "IS_NEW_ARCHITECTURE_ENABLED", isNewArchitectureEnabled().toString()
