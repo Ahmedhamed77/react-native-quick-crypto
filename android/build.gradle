@@ -5,28 +5,18 @@ def agpVersion = com.android.Version.ANDROID_GRADLE_PLUGIN_VERSION
 def agpVersionMajor = agpVersion.tokenize('.')[0].toInteger()
 def agpVersionMinor = agpVersion.tokenize('.')[1].toInteger()
 
-
 buildscript {
-    ext {
-        rnsDefaultTargetSdkVersion = 34
-        rnsDefaultCompileSdkVersion = 34
-        rnsDefaultMinSdkVersion = 23
-        rnsDefaultKotlinVersion = '1.8.0'
+  repositories {
+    maven {
+      url "https://plugins.gradle.org/m2/"
     }
-    ext.safeExtGet = {prop, fallback ->
-        rootProject.ext.has(prop) ? rootProject.ext.get(prop) : fallback
-    }
-    repositories {
-      maven {
-        url "https://plugins.gradle.org/m2/"
-      }
-      mavenCentral()
-      google()
-    }
-    dependencies {
-        classpath("com.android.tools.build:gradle")
-        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:1.8.0"
-    }
+    mavenCentral()
+    google()
+  }
+
+  dependencies {
+    classpath("com.android.tools.build:gradle:8.3.1")
+  }
 }
 
 def isNewArchitectureEnabled() {
@@ -48,7 +38,6 @@ if (isNewArchitectureEnabled()) {
   apply plugin: "com.facebook.react"
 }
 apply plugin: 'com.android.library'
-apply plugin: 'kotlin-android'
 
 def safeExtGet(prop, fallback) {
   rootProject.ext.has(prop) ? rootProject.ext.get(prop) : fallback
@@ -82,7 +71,7 @@ repositories {
 }
 
 android {
-  compileSdkVersion safeExtGet('compileSdkVersion', rnsDefaultCompileSdkVersion)
+  compileSdkVersion safeExtGet("compileSdkVersion", 31)
 
   if ((agpVersionMajor == 7 && agpVersionMinor >= 3) || agpVersionMajor >= 8) {
     // Namespace support was added in 7.3.0
@@ -115,8 +104,8 @@ android {
   }
 
   defaultConfig {
-    minSdkVersion safeExtGet('minSdkVersion', rnsDefaultMinSdkVersion)
-    targetSdkVersion safeExtGet('targetSdkVersion', rnsDefaultTargetSdkVersion)
+    minSdkVersion safeExtGet('minSdkVersion', 23)
+    targetSdkVersion safeExtGet('targetSdkVersion', 31)
     versionCode 1
     versionName "1.0"
     buildConfigField "boolean", "IS_NEW_ARCHITECTURE_ENABLED", isNewArchitectureEnabled().toString()
@@ -173,22 +162,12 @@ android {
 
 }
 
-
-def reactNativePath = findNodeModulePath(projectDir, "react-native")
-
-
 repositories {
-  maven {
-        url "${reactNativePath}/android"
-  }
   mavenCentral()
   google()
 }
 
 dependencies {
-  implementation 'com.facebook.react:react-native:+'
-  implementation "org.jetbrains.kotlin:kotlin-stdlib:${safeExtGet('kotlinVersion')}"
-
   //noinspection GradleDynamicVersion
   implementation "com.facebook.react:react-android:+"
   // https://mvnrepository.com/artifact/com.android.ndk.thirdparty/openssl
