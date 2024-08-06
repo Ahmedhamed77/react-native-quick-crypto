@@ -5,22 +5,25 @@ def agpVersion = com.android.Version.ANDROID_GRADLE_PLUGIN_VERSION
 def agpVersionMajor = agpVersion.tokenize('.')[0].toInteger()
 def agpVersionMinor = agpVersion.tokenize('.')[1].toInteger()
 
+
 buildscript {
-
-  ext.kotlinVersion = '1.9.22' // kotlin version
-
-  repositories {
-    maven {
-      url "https://plugins.gradle.org/m2/"
+    ext {
+        rnsDefaultTargetSdkVersion = 34
+        rnsDefaultCompileSdkVersion = 34
+        rnsDefaultMinSdkVersion = 23
+        rnsDefaultKotlinVersion = '1.8.0'
     }
-    mavenCentral()
-    google()
-  }
-
-  dependencies {
-    classpath("com.android.tools.build:gradle")
-    classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlinVersion"
-  }
+    ext.safeExtGet = {prop, fallback ->
+        rootProject.ext.has(prop) ? rootProject.ext.get(prop) : fallback
+    }
+    repositories {
+        google()
+        mavenCentral()
+    }
+    dependencies {
+        classpath("com.android.tools.build:gradle")
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:${safeExtGet('kotlinVersion', rnsDefaultKotlinVersion)}"
+    }
 }
 
 def isNewArchitectureEnabled() {
@@ -42,6 +45,7 @@ if (isNewArchitectureEnabled()) {
   apply plugin: "com.facebook.react"
 }
 apply plugin: 'com.android.library'
+apply plugin: 'kotlin-android'
 
 def safeExtGet(prop, fallback) {
   rootProject.ext.has(prop) ? rootProject.ext.get(prop) : fallback
