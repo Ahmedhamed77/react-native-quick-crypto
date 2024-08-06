@@ -7,16 +7,7 @@ def agpVersionMinor = agpVersion.tokenize('.')[1].toInteger()
 
 buildscript {
 
-  ext {
-        DefaultTargetSdkVersion = 34
-        DefaultCompileSdkVersion = 34
-        DefaultMinSdkVersion = 23
-        DefaultKotlinVersion = '1.9.0'
-  }
-
-  ext.safeExtGet = { prop, fallback ->
-        rootProject.ext.has(prop) ? rootProject.ext.get(prop) : fallback
-  }
+  ext.kotlinVersion = '1.9.22' // kotlin version
 
   repositories {
     maven {
@@ -27,8 +18,8 @@ buildscript {
   }
 
   dependencies {
-    classpath("com.android.tools.build:gradle:8.3.1")
-    classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:${safeExtGet('kotlinVersion', DefaultKotlinVersion)}"
+    classpath("com.android.tools.build:gradle")
+    classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlinVersion"
   }
 }
 
