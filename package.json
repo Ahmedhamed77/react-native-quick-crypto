@@ -73,7 +73,6 @@
     "@react-native/babel-preset": "^0.75.0-main",
     "@react-native/eslint-config": "^0.75.0-main",
     "@react-native/eslint-plugin": "^0.75.0-main",
-    "@release-it/conventional-changelog": "^8.0.1",
     "@types/jest": "^29.5.11",
     "@types/node": "^22.0.0",
     "@types/react": "^18.0.33",
@@ -84,7 +83,6 @@
     "jest": "^29.7.0",
     "prettier": "^3.2.5",
     "react-native-builder-bob": "^0.28.1",
-    "release-it": "^17.2.0",
     "sscrypto": "^1.1.1",
     "typescript": "^5.1.6"
   },
