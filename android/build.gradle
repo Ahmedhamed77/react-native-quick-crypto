@@ -180,6 +180,8 @@ repositories {
 
 dependencies {
   implementation 'com.facebook.react:react-native:+'
+      implementation "org.jetbrains.kotlin:kotlin-stdlib:${safeExtGet('kotlinVersion')}"
+
   //noinspection GradleDynamicVersion
   implementation "com.facebook.react:react-android:+"
   // https://mvnrepository.com/artifact/com.android.ndk.thirdparty/openssl
