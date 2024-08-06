@@ -173,14 +173,21 @@ android {
 
 }
 
+
+def reactNativePath = findNodeModulePath(projectDir, "react-native")
+
+
 repositories {
+  maven {
+        url "${reactNativePath}/android"
+  }
   mavenCentral()
   google()
 }
 
 dependencies {
   implementation 'com.facebook.react:react-native:+'
-      implementation "org.jetbrains.kotlin:kotlin-stdlib:${safeExtGet('kotlinVersion')}"
+  implementation "org.jetbrains.kotlin:kotlin-stdlib:${safeExtGet('kotlinVersion')}"
 
   //noinspection GradleDynamicVersion
   implementation "com.facebook.react:react-android:+"
